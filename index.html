@@ -608,6 +608,10 @@
   .gender-btn.active { background: rgba(29,158,117,0.12); border-color: var(--green-mid); color: var(--green-mid); font-weight: 500; }
 
   /* fade-in removed for mobile compatibility */
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+  }
 </style>
 </head>
 <body>
@@ -623,7 +627,7 @@
     <span class="nav-name">Warith</span>
     <span class="nav-ar">وارث</span>
   </div>
-  <button class="nav-cta" onclick="document.getElementById('waitlist-top').scrollIntoView({behavior:'smooth'})">Join waitlist</button>
+  <button class="nav-cta" onclick="document.getElementById('bottom-waitlist').scrollIntoView({behavior:'smooth'})">Join waitlist</button>
 </nav>
 
 <section class="hero">
@@ -639,25 +643,12 @@
     <span class="hero-stat" style="margin:0;">Pakistan: <strong>#3 globally</strong></span>
   </div>
 
-  <div class="waitlist-form" id="waitlist-top">
-    <h3>Get early access to the Warith vault</h3>
-    <div id="hero-form">
-      <div class="form-row"><input type="text" id="h-name" placeholder="Your full name" autocomplete="name"></div>
-      <div class="form-row"><input type="email" id="h-email" placeholder="Email address" autocomplete="email"></div>
-      <div class="form-row">
-        <select id="h-country">
-          <option value="" disabled selected>Country</option>
-          <option>United Arab Emirates</option><option>Saudi Arabia</option><option>Qatar</option>
-          <option>Kuwait</option><option>Bahrain</option><option>Oman</option>
-          <option>Pakistan</option><option>United Kingdom</option><option>United States</option>
-          <option>Canada</option><option>Malaysia</option><option>Indonesia</option>
-          <option>Turkey</option><option>Other</option>
-        </select>
-      </div>
-      <button class="form-submit" onclick="submitWaitlist('hero')">Secure my spot &rarr;</button>
-      <p class="form-count">Free to join. No credit card required.</p>
-    </div>
-    <div class="form-success" id="hero-success">&#10003; You're on the list. We'll be in touch when vault access opens.</div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:1rem;">
+    <button class="nav-cta" style="padding:0.85rem 2.5rem;font-size:15px;border-radius:8px;" onclick="document.getElementById('bottom-waitlist').scrollIntoView({behavior:'smooth'})">Join the waitlist &rarr;</button>
+    <button onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})" style="background:transparent;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--text-muted);font-size:13px;font-family:'Inter',sans-serif;">
+      Try the free faraid calculator
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="animation:bounce 1.5s infinite;"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
   </div>
 </section>
 
@@ -728,6 +719,10 @@
         </div>
         <div class="calc-step">
           <div class="calc-step-label"><div class="step-num-badge">2</div> Your crypto assets</div>
+          <div style="background:rgba(29,158,117,0.06);border:1px solid rgba(29,158,117,0.15);border-radius:8px;padding:0.6rem 1rem;margin-bottom:0.75rem;display:flex;align-items:center;gap:8px;">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M7 1L12 3.5V7C12 9.8 9.8 12.3 7 13C4.2 12.3 2 9.8 2 7V3.5L7 1Z" stroke="#1D9E75" stroke-width="1.2"/><path d="M5 7l1.5 1.5L9 5" stroke="#1D9E75" stroke-width="1.2" stroke-linecap="round"/></svg>
+            <span style="font-size:12px;color:var(--text-muted);line-height:1.5;">Your data is <strong style="color:#1D9E75;">never stored or tracked.</strong> This calculator runs entirely in your browser. Nothing you enter here is sent to our servers.</span>
+          </div>
           <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(29,158,117,0.06);border:1px solid rgba(29,158,117,0.2);border-radius:8px;padding:0.6rem 1rem;margin-bottom:0.75rem;">
             <div style="display:flex;align-items:center;gap:8px;">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4h10a1 1 0 011 1v5a1 1 0 01-1 1H2a1 1 0 01-1-1V5a1 1 0 011-1z" stroke="#1D9E75" stroke-width="1.2"/><circle cx="10" cy="7" r="1" fill="#1D9E75"/></svg>
@@ -875,7 +870,7 @@
   </div>
 </div>
 
-<div style="background:var(--dark-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:4rem 1.5rem;text-align:center" class="">
+<div id="bottom-waitlist" style="background:var(--dark-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:4rem 1.5rem;text-align:center" class="">
   <p class="section-label" style="justify-content:center;display:flex">Early access</p>
   <h2 class="section-title" style="margin-bottom:1rem">Be first when<br>the vault launches</h2>
   <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:2rem;max-width:440px;margin-left:auto;margin-right:auto">Join the waitlist. Use the free faraid calculator now. We'll reach out personally when vault access opens.</p>
@@ -905,7 +900,7 @@
   <div class="footer-links">
     <a href="#calculator">Calculator</a>
     <a href="mailto:fasih@warith.app">Contact</a>
-    <a href="#waitlist-top">Waitlist</a>
+    <a href="#bottom-waitlist">Waitlist</a>
   </div>
   <p>Crypto inheritance for Muslim families. GCC-first. Sharia-compliant.</p>
   <p style="margin-top:0.5rem;font-size:11px">&#169; 2026 Warith. All rights reserved.</p>
