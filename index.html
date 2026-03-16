@@ -8,6 +8,7 @@
 <meta property="og:title" content="Warith وارث: Crypto Inheritance for Muslim Families">
 <meta property="og:description" content="Your crypto dies when you do. Warith ensures your digital assets reach the right heirs, correctly, under Islamic law.">
 <meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231D9E75'/><path d='M16 4L26 10V22L16 28L6 22V10Z' stroke='white' stroke-width='1.5' fill='none'/><circle cx='16' cy='16' r='3' fill='white'/></svg>">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700;900&display=swap');
 
@@ -899,7 +900,7 @@
   <div class="footer-logo">Warith <span class="footer-ar">وارث</span></div>
   <div class="footer-links">
     <a href="#calculator">Calculator</a>
-    <a href="mailto:fasih@warith.app">Contact</a>
+    <a href="/cdn-cgi/l/email-protection#aec8cfddc7c6eed9cfdcc7dac680cfdede">Contact</a>
     <a href="#bottom-waitlist">Waitlist</a>
   </div>
   <p>Crypto inheritance for Muslim families. GCC-first. Sharia-compliant.</p>
@@ -1042,6 +1043,9 @@ function calcFaraid() {
   if (hasFather && hasChildren) {
     results.push({ label: 'Father', rel: 'father', pct: 1/6, fraction: '1/6' });
     residual -= 1/6;
+  } else if (hasFather && !hasChildren) {
+    results.push({ label: 'Father', rel: 'father', pct: 1/6, fraction: '1/6' });
+    residual -= 1/6;
   }
 
   if (hasMother) {
@@ -1060,7 +1064,7 @@ function calcFaraid() {
       results.push({ label: daughters > 1 ? 'Daughter ' + (i+1) : 'Daughter', rel: 'daughter', pct: residual * (1/totalUnits), fraction: 'asabah' });
     }
   } else if (hasFather) {
-    results.push({ label: 'Father', rel: 'father', pct: residual, fraction: 'residual' });
+    results.push({ label: 'Father (residual)', rel: 'father', pct: residual, fraction: 'asabah' });
   } else if (brothers > 0 || sisters > 0) {
     var bu = brothers * 2, su = sisters, tu = bu + su;
     for (var i = 0; i < brothers; i++) {
@@ -1124,6 +1128,7 @@ function runCalc() {
   panel.className = 'results-panel show';
   document.getElementById('vault-cta').className = 'vault-cta show';
   setTimeout(function() { panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 100);
+  saveToSheet({ type: 'calc_completion', time: new Date().toISOString() });
 }
 
 function submitWaitlist(source) {
