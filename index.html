@@ -491,8 +491,6 @@
   footer .footer-links a { color: var(--text-dim); font-size: 13px; transition: color 0.2s; }
   footer .footer-links a:hover { color: var(--green-mid); }
 
-
-  /* ── TABLET (max 1024px) ────────────────────────────────── */
   @media(max-width: 1024px) {
     .hero-headline { font-size: clamp(2.4rem, 6vw, 4rem); }
     .section { padding: 4rem 1.5rem; }
@@ -500,54 +498,42 @@
     .stats-bar { gap: 2rem; padding: 1.75rem 1rem; }
   }
 
-  /* ── MOBILE (max 768px) ─────────────────────────────────── */
   @media(max-width: 768px) {
     nav { padding: 0 1rem; }
     .nav-ar { font-size: 13px; }
-
     .hero { padding: 4rem 1rem 3rem; min-height: auto; }
     .hero-headline { font-size: clamp(2.2rem, 9vw, 3rem); margin-bottom: 1rem; }
     .hero-sub { font-size: 0.95rem; margin-bottom: 1rem; }
     .hero-stat { font-size: 11px; line-height: 1.8; }
     .hero-badge { font-size: 11px; padding: 0.3rem 0.75rem; margin-bottom: 1.5rem; }
-
     .waitlist-form { padding: 1.25rem; }
     .waitlist-form h3 { font-size: 14px; }
-
     .stats-bar { gap: 1.25rem; padding: 1.5rem 1rem; flex-wrap: wrap; justify-content: center; }
     .stat-item { min-width: 120px; }
     .stat-num { font-size: 1.6rem; }
     .stat-label { font-size: 10px; }
-
     .section { padding: 3rem 1rem; }
     .section-title { font-size: clamp(1.6rem, 7vw, 2.2rem); }
     .section-sub { font-size: 0.9rem; margin-bottom: 2rem; }
-
     .problem-grid { grid-template-columns: 1fr; gap: 0.75rem; }
     .problem-card { padding: 1.25rem; }
-
     .calc-section { padding: 3rem 1rem; }
     .calc-body { padding: 1rem; }
     .asset-row { grid-template-columns: 1fr 100px 36px; gap: 6px; }
     .heir-grid { grid-template-columns: 1fr; gap: 8px; }
     .calc-btn { font-size: 13px; padding: 0.75rem; }
-
     .results-header { flex-direction: column; gap: 8px; }
     .results-estate-val { font-size: 20px; }
     .heir-result-row { padding: 0.75rem 1rem; gap: 8px; }
     .heir-fraction-out { display: none; }
     .heir-name-out { font-size: 13px; }
     .heir-pct-out { font-size: 14px; }
-
     .vault-cta { padding: 1.25rem; }
     .vault-cta-title { font-size: 15px; }
-
     .steps-grid { grid-template-columns: 1fr; gap: 0.75rem; }
     .step-card { padding: 1.25rem; }
-
     .comp-table th { font-size: 10px; padding: 0.6rem 0.6rem; }
     .comp-table td { font-size: 12px; padding: 0.65rem 0.6rem; }
-
     footer .footer-links { gap: 1rem; }
     footer { padding: 2rem 1rem; }
     .wallet-names { display: none !important; }
@@ -582,7 +568,6 @@
     .wallet-names { display: inline !important; }
   }
 
-  /* ── SMALL MOBILE (max 400px) ───────────────────────────── */
   @media(max-width: 400px) {
     .hero-headline { font-size: 2rem; }
     .nav-name { font-size: 15px; }
@@ -608,7 +593,6 @@
   .gender-btn:hover { border-color: var(--green-mid); color: var(--text); }
   .gender-btn.active { background: rgba(29,158,117,0.12); border-color: var(--green-mid); color: var(--green-mid); font-weight: 500; }
 
-  /* fade-in removed for mobile compatibility */
   @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(5px); }
@@ -871,7 +855,7 @@
   </div>
 </div>
 
-<div id="bottom-waitlist" style="background:var(--dark-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:4rem 1.5rem;text-align:center" class="">
+<div id="bottom-waitlist" style="background:var(--dark-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:4rem 1.5rem;text-align:center">
   <p class="section-label" style="justify-content:center;display:flex">Early access</p>
   <h2 class="section-title" style="margin-bottom:1rem">Be first when<br>the vault launches</h2>
   <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:2rem;max-width:440px;margin-left:auto;margin-right:auto">Join the waitlist. Use the free faraid calculator now. We'll reach out personally when vault access opens.</p>
@@ -900,7 +884,7 @@
   <div class="footer-logo">Warith <span class="footer-ar">وارث</span></div>
   <div class="footer-links">
     <a href="#calculator">Calculator</a>
-    <a href="/cdn-cgi/l/email-protection#aec8cfddc7c6eed9cfdcc7dac680cfdede">Contact</a>
+    <a href="mailto:fasih@warith.app">Contact</a>
     <a href="#bottom-waitlist">Waitlist</a>
   </div>
   <p>Crypto inheritance for Muslim families. GCC-first. Sharia-compliant.</p>
@@ -1005,8 +989,6 @@ function adj(key, delta) {
   counts[key] = Math.min(max, Math.max(min, (counts[key] || 0) + delta));
   document.getElementById('v-' + key).textContent = counts[key];
 }
-
-function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
 
 function calcFaraid() {
   var hasSpouse = document.getElementById('c-spouse').checked;
