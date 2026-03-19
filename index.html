@@ -9,33 +9,39 @@
 <meta property="og:description" content="Your crypto dies when you do. Warith ensures your digital assets reach the right heirs, correctly, under Islamic law.">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231D9E75'/><path d='M16 4L26 10V22L16 28L6 22V10Z' stroke='white' stroke-width='1.5' fill='none'/><circle cx='16' cy='16' r='3' fill='white'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700;900&display=swap');
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
     --green: #0F6E56;
-    --green-light: #E1F5EE;
     --green-mid: #1D9E75;
     --green-dark: #085041;
+    --green-deep: #0A3D2E;
     --gold: #C9A84C;
+    --gold-dim: rgba(201,168,76,0.15);
     --dark: #0D1117;
-    --dark-2: #161B22;
-    --dark-3: #21262D;
-    --border: rgba(255,255,255,0.08);
+    --dark-warm: #0D100E;
+    --dark-2: #121A14;
+    --dark-3: #1A2319;
+    --border: rgba(255,255,255,0.07);
+    --border-gold: rgba(201,168,76,0.2);
     --text: #E6EDF3;
     --text-muted: #8B949E;
     --text-dim: #484F58;
     --radius: 12px;
     --radius-sm: 8px;
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Inter', sans-serif;
   }
 
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Inter', sans-serif;
-    background: var(--dark);
+    font-family: var(--font-body);
+    background: var(--dark-warm);
     color: var(--text);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -43,14 +49,20 @@
 
   a { color: inherit; text-decoration: none; }
 
+  /* ── NAV ── */
   nav {
     position: sticky; top: 0; z-index: 100;
-    background: rgba(13,17,23,0.92);
-    backdrop-filter: blur(12px);
+    background: rgba(13,16,14,0.92);
+    backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
     padding: 0 2rem;
     display: flex; align-items: center; justify-content: space-between;
     height: 60px;
+    transition: height 0.3s ease, background 0.3s ease;
+  }
+  nav.scrolled {
+    height: 48px;
+    background: rgba(13,16,14,0.97);
   }
   .nav-logo { display: flex; align-items: center; gap: 10px; }
   .nav-logo-mark {
@@ -67,24 +79,49 @@
     border: none; border-radius: var(--radius-sm);
     padding: 0.45rem 1.1rem; font-size: 13px; font-weight: 500;
     cursor: pointer; transition: background 0.2s;
+    font-family: var(--font-body);
   }
   .nav-cta:hover { background: var(--green); }
 
+  /* ── DIAMOND DIVIDER ── */
+  .diamond-divider {
+    width: 100%; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; position: relative;
+    background: transparent;
+  }
+  .diamond-divider::before {
+    content: '◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆ ◆';
+    font-size: 8px; letter-spacing: 12px;
+    color: rgba(201,168,76,0.25);
+    white-space: nowrap;
+    animation: shimmer 3s linear infinite;
+  }
+  @keyframes shimmer {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.5; }
+    100% { opacity: 0.2; }
+  }
+
+  /* ── HERO ── */
   .hero {
-    min-height: 92vh;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center;
-    padding: 5rem 1.5rem 4rem;
+    min-height: 94vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+    padding: 5rem 4rem 4rem;
     position: relative; overflow: hidden;
   }
-  .hero::before {
-    content: '';
-    position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(29,158,117,0.12) 0%, transparent 70%);
-    pointer-events: none;
+  .hero-canvas {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; z-index: 0;
+    opacity: 1;
   }
+  .hero-left { position: relative; z-index: 1; }
+  .hero-right { position: relative; z-index: 1; }
+
   .hero-badge {
     display: inline-flex; align-items: center; gap: 6px;
     background: rgba(29,158,117,0.1);
@@ -101,149 +138,208 @@
     border-radius: 50%; background: var(--green-mid);
     animation: pulse 2s infinite;
   }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
-  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
   .hero-headline {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.8rem, 7vw, 5.5rem);
-    font-weight: 900;
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 600;
     line-height: 1.05;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
     margin-bottom: 1.5rem;
-    max-width: 800px;
   }
-  .hero-headline span { color: var(--green-mid); }
-  .hero-sub {
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    color: var(--text-muted);
-    max-width: 540px;
-    margin: 0 auto 1.25rem;
-    line-height: 1.7;
-  }
-  .hero-stat {
-    font-size: 13px; color: var(--text-dim);
-    margin-bottom: 2.5rem;
-  }
-  .hero-stat strong { color: var(--gold); }
-
-  .waitlist-form {
-    background: var(--dark-2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.75rem;
-    max-width: 480px; width: 100%;
-    margin: 0 auto;
-  }
-  .waitlist-form h3 {
-    font-size: 15px; font-weight: 600;
-    margin-bottom: 1.25rem;
-    color: var(--text);
-  }
-  .form-row { margin-bottom: 0.75rem; }
-  .form-row input, .form-row select {
-    width: 100%;
-    background: var(--dark-3);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 0.7rem 1rem;
-    font-size: 14px; font-family: 'Inter', sans-serif;
-    color: var(--text);
-    outline: none;
-    transition: border-color 0.2s;
-    -webkit-appearance: none;
-  }
-  .form-row input::placeholder { color: var(--text-dim); }
-  .form-row input:focus, .form-row select:focus { border-color: var(--green-mid); }
-  .form-row select option { background: var(--dark-3); color: var(--text); }
-  .form-submit {
-    width: 100%;
-    background: var(--green-mid); color: white;
-    border: none; border-radius: var(--radius-sm);
-    padding: 0.8rem; font-size: 14px; font-weight: 600;
-    cursor: pointer; transition: background 0.2s;
-    font-family: 'Inter', sans-serif;
-    margin-top: 0.25rem;
-  }
-  .form-submit:hover { background: var(--green); }
-  .form-submit:disabled { background: var(--text-dim); cursor: not-allowed; }
-  .form-success {
-    display: none;
-    text-align: center; padding: 1rem;
-    color: var(--green-mid); font-size: 14px; font-weight: 500;
-  }
-  .form-count {
-    text-align: center; margin-top: 0.75rem;
-    font-size: 12px; color: var(--text-dim);
-  }
-
-  .stats-bar {
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 2rem 1.5rem;
-    display: flex; align-items: center; justify-content: center;
-    gap: 3rem; flex-wrap: wrap;
-    background: var(--dark-2);
-  }
-  .stat-item { text-align: center; }
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem; font-weight: 700;
-    color: var(--green-mid);
+  .hero-headline .gold-italic {
+    color: var(--gold);
+    font-style: italic;
     display: block;
   }
-  .stat-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
 
-  .section { padding: 5rem 1.5rem; max-width: 1100px; margin: 0 auto; }
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 480px;
+    line-height: 1.75;
+    margin-bottom: 2rem;
+  }
+  .hero-sub strong { color: var(--green-mid); font-weight: 500; }
+
+  .hero-actions { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--green-mid); color: white;
+    border: none; border-radius: var(--radius-sm);
+    padding: 0.9rem 2rem; font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: background 0.2s, transform 0.2s;
+    font-family: var(--font-body); letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .btn-primary:hover { background: var(--green); transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent; color: var(--text-muted);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    font-size: 13px; font-family: var(--font-body);
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--text); }
+  .btn-ghost svg { animation: bounce 1.5s infinite; }
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+
+  /* ── HERO PREVIEW CARD ── */
+  .hero-preview-card {
+    background: rgba(18,26,20,0.85);
+    border: 1px solid var(--border-gold);
+    border-radius: 16px;
+    padding: 1.5rem;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 24px 64px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,168,76,0.08);
+  }
+  .preview-card-header {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .preview-card-header .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .preview-card-header .dot-red { background: #f85149; }
+  .preview-card-header .dot-yellow { background: #d29922; }
+  .preview-card-header .dot-green { background: #3fb950; }
+  .preview-card-title { font-size: 12px; color: var(--text-muted); margin-left: 4px; }
+  .preview-estate {
+    font-family: var(--font-display);
+    font-size: 28px; font-weight: 600;
+    color: var(--text); margin-bottom: 0.25rem;
+  }
+  .preview-estate-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.25rem; }
+  .preview-heir-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .preview-heir-row:last-child { border-bottom: none; }
+  .preview-avatar {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: rgba(29,158,117,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 600; color: var(--green-mid);
+    flex-shrink: 0;
+  }
+  .preview-heir-name { font-size: 13px; font-weight: 500; flex: 1; }
+  .preview-heir-rel { font-size: 11px; color: var(--text-muted); }
+  .preview-bar-wrap { width: 80px; height: 4px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; }
+  .preview-bar { height: 100%; background: var(--green-mid); border-radius: 4px; }
+  .preview-pct { font-size: 13px; font-weight: 600; color: var(--green-mid); min-width: 36px; text-align: right; }
+  .preview-basis {
+    margin-top: 1rem; padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-dim); line-height: 1.5;
+  }
+  .preview-basis strong { color: var(--green-mid); }
+
+  /* ── INLINE STATS STRIP ── */
+  .stats-strip {
+    background: var(--dark-2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; flex-wrap: wrap;
+  }
+  .stat-strip-item {
+    padding: 0.75rem 2rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .stat-strip-item:last-child { border-right: none; }
+  .stat-strip-num {
+    font-family: var(--font-display);
+    font-size: 1.6rem; font-weight: 600;
+    color: var(--green-mid);
+    display: block; line-height: 1;
+  }
+  .stat-strip-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; display: block; }
+
+  /* ── SECTIONS ── */
+  .section { padding: 5rem 4rem; max-width: 1200px; margin: 0 auto; }
   .section-label {
     font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em;
     color: var(--green-mid); font-weight: 600; margin-bottom: 0.75rem;
   }
   .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 700; line-height: 1.2;
-    margin-bottom: 1.25rem;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600; line-height: 1.15;
+    margin-bottom: 1rem;
   }
+  .section-title .gold-italic { color: var(--gold); font-style: italic; }
   .section-sub {
-    font-size: 1.05rem; color: var(--text-muted);
-    max-width: 600px; line-height: 1.7;
+    font-size: 1rem; color: var(--text-muted);
+    max-width: 560px; line-height: 1.75;
     margin-bottom: 3rem;
   }
 
-  .problem-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1rem; margin-bottom: 2rem;
+  /* ── PROBLEM SECTION ── */
+  .problem-list { display: flex; flex-direction: column; gap: 0; }
+  .problem-row {
+    display: grid; grid-template-columns: 48px 1fr;
+    gap: 1.5rem; align-items: start;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
   }
-  .problem-card {
-    background: var(--dark-2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-  }
-  .problem-card-icon {
-    width: 36px; height: 36px;
+  .problem-row:first-child { border-top: 1px solid var(--border); }
+  .problem-icon {
+    width: 48px; height: 48px;
     background: rgba(29,158,117,0.1);
-    border-radius: var(--radius-sm);
+    border: 1px solid rgba(29,158,117,0.2);
+    border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
-    margin-bottom: 1rem;
+    flex-shrink: 0;
+    transition: background 0.2s, border-color 0.2s;
   }
-  .problem-card-icon svg { width: 18px; height: 18px; }
-  .problem-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 0.5rem; }
-  .problem-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+  .problem-row:hover .problem-icon { background: rgba(29,158,117,0.15); border-color: rgba(29,158,117,0.4); }
+  .problem-icon svg { width: 20px; height: 20px; }
+  .problem-content h4 {
+    font-family: var(--font-display);
+    font-size: 1.25rem; font-weight: 600;
+    margin-bottom: 0.5rem; line-height: 1.3;
+  }
+  .problem-content p { font-size: 14px; color: var(--text-muted); line-height: 1.7; max-width: 620px; }
+  .problem-tag {
+    display: inline-block; margin-top: 0.5rem;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--gold); border: 1px solid rgba(201,168,76,0.3);
+    padding: 2px 8px; border-radius: 4px;
+  }
 
+  /* ── CALCULATOR ── */
   .calc-section {
-    padding: 5rem 1.5rem;
+    padding: 5rem 4rem;
     background: var(--dark-2);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
+    position: relative; overflow: hidden;
   }
-  .calc-inner { max-width: 800px; margin: 0 auto; }
+  .calc-section::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(8,80,65,0.25) 0%, transparent 70%);
+    pointer-events: none;
+    animation: breathe 4s ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+  }
+  .calc-inner { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
   .calc-card {
-    background: var(--dark);
+    background: rgba(13,16,14,0.8);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     overflow: hidden;
+    backdrop-filter: blur(8px);
   }
   .calc-header {
     background: var(--green-dark);
@@ -254,7 +350,6 @@
   .calc-header-text h3 { font-size: 15px; font-weight: 600; }
   .calc-header-text p { font-size: 12px; color: rgba(255,255,255,0.65); }
   .calc-body { padding: 1.5rem; }
-
   .calc-step { margin-bottom: 1.75rem; }
   .calc-step-label {
     font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
@@ -267,7 +362,6 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 10px; font-weight: 700; color: white;
   }
-
   .asset-row {
     display: grid; grid-template-columns: 1fr 150px 36px;
     gap: 8px; margin-bottom: 8px; align-items: center;
@@ -277,41 +371,34 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     padding: 0.6rem 0.85rem;
-    font-size: 13px; font-family: 'Inter', sans-serif;
+    font-size: 13px; font-family: var(--font-body);
     color: var(--text); outline: none;
     transition: border-color 0.2s; width: 100%;
   }
-  .asset-row input:focus, .asset-row select:focus, .heir-input:focus { border-color: var(--green-mid); }
+  .asset-row input:focus, .asset-row select:focus { border-color: var(--green-mid); }
   .asset-row select option { background: var(--dark-3); }
   .remove-btn {
     width: 36px; height: 36px;
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text-dim); font-size: 18px;
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    background: transparent; border: 1px solid var(--border);
+    border-radius: var(--radius-sm); color: var(--text-dim);
+    font-size: 18px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
     transition: all 0.2s; flex-shrink: 0;
   }
   .remove-btn:hover { border-color: #f85149; color: #f85149; background: rgba(248,81,73,0.08); }
-
   .add-btn {
     background: transparent; border: 1px dashed var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--green-mid); font-size: 13px; font-weight: 500;
-    padding: 0.5rem 1rem; cursor: pointer;
-    display: inline-flex; align-items: center; gap: 6px;
-    transition: all 0.2s; font-family: 'Inter', sans-serif;
-    margin-top: 4px;
+    border-radius: var(--radius-sm); color: var(--green-mid);
+    font-size: 13px; font-weight: 500; padding: 0.5rem 1rem;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+    transition: all 0.2s; font-family: var(--font-body); margin-top: 4px;
   }
   .add-btn:hover { border-color: var(--green-mid); background: rgba(29,158,117,0.05); }
-
   .heir-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  @media(max-width: 768px) { .heir-grid { grid-template-columns: 1fr; } }
   .heir-card {
-    background: var(--dark-2);
+    background: var(--dark-3);
     border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 1rem;
+    border-radius: var(--radius-sm); padding: 1rem;
   }
   .heir-card-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.75rem; }
   .heir-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
@@ -344,59 +431,44 @@
   }
   .count-btn:hover { border-color: var(--green-mid); color: var(--green-mid); }
   .count-val { font-size: 14px; font-weight: 600; min-width: 16px; text-align: center; }
-
   .total-row {
     display: flex; justify-content: space-between; align-items: center;
-    background: rgba(29,158,117,0.08);
-    border: 1px solid rgba(29,158,117,0.2);
-    border-radius: var(--radius-sm);
-    padding: 0.75rem 1rem;
-    margin: 1rem 0;
+    background: rgba(29,158,117,0.08); border: 1px solid rgba(29,158,117,0.2);
+    border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin: 1rem 0;
   }
   .total-row span { font-size: 13px; color: var(--text-muted); }
   .total-row strong { font-size: 15px; font-weight: 600; color: var(--green-mid); }
-
   .calc-btn {
     width: 100%; background: var(--green-mid); color: white;
     border: none; border-radius: var(--radius-sm);
-    padding: 0.875rem; font-size: 14px; font-weight: 600;
+    padding: 0.875rem; font-size: 13px; font-weight: 600;
     cursor: pointer; transition: background 0.2s;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body); letter-spacing: 0.05em; text-transform: uppercase;
   }
   .calc-btn:hover { background: var(--green); }
-
   .results-panel {
-    display: none;
-    background: var(--dark);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    display: none; background: var(--dark-warm);
+    border: 1px solid var(--border); border-radius: var(--radius);
     overflow: hidden; margin-top: 1.5rem;
   }
   .results-panel.show { display: block; }
   .results-header {
-    background: var(--green-dark);
-    padding: 1.25rem 1.5rem;
+    background: var(--green-dark); padding: 1.25rem 1.5rem;
     display: flex; justify-content: space-between; align-items: flex-start;
   }
   .results-estate-label { font-size: 11px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
-  .results-estate-val { font-size: 24px; font-weight: 700; font-family: 'Playfair Display', serif; }
-  .results-badge {
-    font-size: 11px; background: rgba(255,255,255,0.12);
-    padding: 3px 10px; border-radius: 20px; font-weight: 500;
-  }
+  .results-estate-val { font-size: 24px; font-weight: 700; font-family: var(--font-display); }
+  .results-badge { font-size: 11px; background: rgba(255,255,255,0.12); padding: 3px 10px; border-radius: 20px; font-weight: 500; }
   .heir-result-row {
     display: flex; align-items: center;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--border);
-    gap: 12px;
+    padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); gap: 12px;
   }
   .heir-result-row:last-child { border-bottom: none; }
   .heir-avatar {
     width: 36px; height: 36px; border-radius: 50%;
     background: rgba(29,158,117,0.15);
     display: flex; align-items: center; justify-content: center;
-    font-size: 12px; font-weight: 600; color: var(--green-mid);
-    flex-shrink: 0;
+    font-size: 12px; font-weight: 600; color: var(--green-mid); flex-shrink: 0;
   }
   .heir-info { flex: 1; min-width: 0; }
   .heir-name-out { font-size: 14px; font-weight: 500; }
@@ -406,202 +478,258 @@
   .heir-pct-out { font-size: 15px; font-weight: 600; color: var(--green-mid); }
   .heir-usd-out { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
   .faraid-note {
-    background: rgba(29,158,117,0.06);
-    border-top: 1px solid var(--border);
-    padding: 1rem 1.5rem;
-    font-size: 12px; color: var(--text-muted); line-height: 1.6;
+    background: rgba(29,158,117,0.06); border-top: 1px solid var(--border);
+    padding: 1rem 1.5rem; font-size: 12px; color: var(--text-muted); line-height: 1.6;
   }
   .faraid-note strong { color: var(--green-mid); }
-
   .vault-cta {
-    display: none;
-    background: var(--dark-2);
-    border: 1px solid rgba(29,158,117,0.3);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    margin-top: 1.5rem;
-    text-align: center;
+    display: none; background: var(--dark-2);
+    border: 1px solid rgba(201,168,76,0.2); border-radius: var(--radius);
+    padding: 1.5rem; margin-top: 1.5rem; text-align: center;
   }
   .vault-cta.show { display: block; }
-  .vault-cta-title { font-size: 16px; font-weight: 600; margin-bottom: 0.5rem; }
+  .vault-cta-title { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; margin-bottom: 0.5rem; }
   .vault-cta-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 1.25rem; line-height: 1.6; }
   .vault-form { display: flex; flex-direction: column; gap: 8px; max-width: 360px; margin: 0 auto; }
   .vault-form input {
     background: var(--dark-3); border: 1px solid var(--border);
     border-radius: var(--radius-sm); padding: 0.7rem 1rem;
-    font-size: 13px; font-family: 'Inter', sans-serif;
+    font-size: 13px; font-family: var(--font-body);
     color: var(--text); outline: none; transition: border-color 0.2s;
   }
   .vault-form input:focus { border-color: var(--green-mid); }
   .vault-form input::placeholder { color: var(--text-dim); }
   .vault-submit {
     background: var(--green-mid); color: white;
-    border: none; border-radius: var(--radius-sm);
-    padding: 0.75rem; font-size: 14px; font-weight: 600;
-    cursor: pointer; transition: background 0.2s;
-    font-family: 'Inter', sans-serif;
+    border: none; border-radius: var(--radius-sm); padding: 0.75rem;
+    font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s;
+    font-family: var(--font-body); letter-spacing: 0.05em; text-transform: uppercase;
   }
   .vault-submit:hover { background: var(--green); }
   .vault-success { display: none; color: var(--green-mid); font-size: 14px; font-weight: 500; padding: 0.5rem 0; }
 
-  .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
-  .step-card {
-    background: var(--dark-2); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 1.5rem;
+  /* ── HOW IT WORKS — VERTICAL TIMELINE ── */
+  .timeline { position: relative; padding-left: 0; }
+  .timeline-line {
+    position: absolute; left: 50%; top: 0; bottom: 0;
+    width: 1px; background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.3) 10%, rgba(201,168,76,0.3) 90%, transparent);
+    transform: translateX(-50%);
   }
-  .step-num {
-    width: 32px; height: 32px;
-    background: rgba(29,158,117,0.15);
-    border: 1px solid rgba(29,158,117,0.3);
-    border-radius: 50%;
+  .timeline-item {
+    display: grid; grid-template-columns: 1fr 60px 1fr;
+    gap: 2rem; align-items: center;
+    padding: 2.5rem 0;
+  }
+  .timeline-item:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .timeline-left { text-align: right; }
+  .timeline-right { text-align: left; }
+  .timeline-node {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--dark-2);
+    border: 2px solid var(--gold);
     display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 700; color: var(--green-mid);
-    margin-bottom: 1rem;
+    font-family: var(--font-display); font-size: 14px; font-weight: 600;
+    color: var(--gold); margin: 0 auto;
+    position: relative; z-index: 1;
   }
-  .step-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 0.5rem; }
-  .step-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+  .timeline-title {
+    font-family: var(--font-display); font-size: 1.2rem; font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .timeline-desc { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
 
+  /* ── COMPARISON TABLE ── */
   .comp-table { width: 100%; border-collapse: collapse; border-radius: var(--radius); overflow: hidden; }
   .comp-table th {
     background: var(--dark-3); padding: 0.75rem 1rem;
     font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
     color: var(--text-muted); text-align: left; font-weight: 600;
   }
-  .comp-table td {
-    padding: 0.875rem 1rem; font-size: 13px;
-    border-bottom: 1px solid var(--border);
-  }
+  .comp-table td { padding: 0.875rem 1rem; font-size: 13px; border-bottom: 1px solid var(--border); }
   .comp-table tr:last-child td { border-bottom: none; }
   .comp-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
   .check { color: var(--green-mid); font-weight: 700; }
   .cross { color: #f85149; }
-  .warith-row td { background: rgba(29,158,117,0.06) !important; }
-  .warith-row td:first-child { font-weight: 600; color: var(--green-mid); }
+  .warith-row td { background: rgba(201,168,76,0.05) !important; border-left: none; }
+  .warith-row td:first-child { font-weight: 600; color: var(--gold); border-left: 2px solid var(--gold); }
 
-  footer {
+  /* ── WAITLIST ── */
+  .waitlist-section {
+    padding: 5rem 4rem;
+    position: relative; overflow: hidden;
+    background: var(--dark-2);
     border-top: 1px solid var(--border);
-    padding: 2.5rem 1.5rem;
-    text-align: center;
-    color: var(--text-dim); font-size: 13px;
   }
-  footer .footer-logo { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; }
-  footer .footer-ar { color: var(--text-muted); }
-  footer p { margin-top: 0.5rem; }
-  footer .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin: 1rem 0; }
-  footer .footer-links a { color: var(--text-dim); font-size: 13px; transition: color 0.2s; }
-  footer .footer-links a:hover { color: var(--green-mid); }
-
-  @media(max-width: 1024px) {
-    .hero-headline { font-size: clamp(2.4rem, 6vw, 4rem); }
-    .section { padding: 4rem 1.5rem; }
-    .steps-grid { grid-template-columns: repeat(2, 1fr); }
-    .stats-bar { gap: 2rem; padding: 1.75rem 1rem; }
+  .waitlist-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(29,158,117,0.04) 0%, transparent 50%, rgba(201,168,76,0.04) 100%);
+    animation: diag-sweep 8s ease-in-out infinite;
   }
-
-  @media(max-width: 768px) {
-    nav { padding: 0 1rem; }
-    .nav-ar { font-size: 13px; }
-    .hero { padding: 4rem 1rem 3rem; min-height: auto; }
-    .hero-headline { font-size: clamp(2.2rem, 9vw, 3rem); margin-bottom: 1rem; }
-    .hero-sub { font-size: 0.95rem; margin-bottom: 1rem; }
-    .hero-stat { font-size: 11px; line-height: 1.8; }
-    .hero-badge { font-size: 11px; padding: 0.3rem 0.75rem; margin-bottom: 1.5rem; }
-    .waitlist-form { padding: 1.25rem; }
-    .waitlist-form h3 { font-size: 14px; }
-    .stats-bar { gap: 1.25rem; padding: 1.5rem 1rem; flex-wrap: wrap; justify-content: center; }
-    .stat-item { min-width: 120px; }
-    .stat-num { font-size: 1.6rem; }
-    .stat-label { font-size: 10px; }
-    .section { padding: 3rem 1rem; }
-    .section-title { font-size: clamp(1.6rem, 7vw, 2.2rem); }
-    .section-sub { font-size: 0.9rem; margin-bottom: 2rem; }
-    .problem-grid { grid-template-columns: 1fr; gap: 0.75rem; }
-    .problem-card { padding: 1.25rem; }
-    .calc-section { padding: 3rem 1rem; }
-    .calc-body { padding: 1rem; }
-    .asset-row { grid-template-columns: 1fr 100px 36px; gap: 6px; }
-    .heir-grid { grid-template-columns: 1fr; gap: 8px; }
-    .calc-btn { font-size: 13px; padding: 0.75rem; }
-    .results-header { flex-direction: column; gap: 8px; }
-    .results-estate-val { font-size: 20px; }
-    .heir-result-row { padding: 0.75rem 1rem; gap: 8px; }
-    .heir-fraction-out { display: none; }
-    .heir-name-out { font-size: 13px; }
-    .heir-pct-out { font-size: 14px; }
-    .vault-cta { padding: 1.25rem; }
-    .vault-cta-title { font-size: 15px; }
-    .steps-grid { grid-template-columns: 1fr; gap: 0.75rem; }
-    .step-card { padding: 1.25rem; }
-    .comp-table th { font-size: 10px; padding: 0.6rem 0.6rem; }
-    .comp-table td { font-size: 12px; padding: 0.65rem 0.6rem; }
-    footer .footer-links { gap: 1rem; }
-    footer { padding: 2rem 1rem; }
-    .wallet-names { display: none !important; }
-    .calc-section { padding: 2rem 0.75rem; }
-    .calc-inner { max-width: 100%; }
-    .calc-card { border-radius: 10px; }
-    .calc-body { padding: 1rem 0.75rem; }
-    .calc-header { padding: 1rem; }
-    .calc-step { margin-bottom: 1.25rem; }
-    .asset-row { grid-template-columns: 1fr 90px 32px; gap: 6px; }
-    .asset-row input, .asset-row select { font-size: 14px; padding: 0.55rem 0.6rem; }
-    .heir-card { padding: 0.875rem; }
-    .count-row { margin-bottom: 8px; }
-    .count-btn { width: 32px; height: 32px; font-size: 16px; }
-    .count-val { font-size: 15px; min-width: 20px; }
-    .toggle { width: 40px; height: 22px; }
-    .toggle-track:before { width: 16px; height: 16px; }
-    .toggle input:checked + .toggle-track:before { transform: translateX(18px); }
-    .calc-btn { padding: 1rem; font-size: 15px; }
-    .gender-btn { padding: 0.75rem 0.5rem; font-size: 14px; }
-    .results-header { padding: 1rem; }
-    .heir-result-row { padding: 0.75rem; gap: 8px; flex-wrap: wrap; }
-    .heir-fraction-out { display: none; }
-    .vault-form { max-width: 100%; }
-    .vault-form input, .vault-form select { font-size: 15px; padding: 0.75rem; }
-    .step-num-badge { width: 22px; height: 22px; font-size: 11px; flex-shrink: 0; }
-    .calc-step-label { font-size: 11px; gap: 6px; }
-    .add-btn { padding: 0.6rem 0.85rem; font-size: 13px; }
+  @keyframes diag-sweep {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
   }
-
-  @media(min-width: 769px) {
-    .wallet-names { display: inline !important; }
+  .waitlist-inner { max-width: 520px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+  .waitlist-form-card {
+    background: rgba(13,16,14,0.6);
+    border: 1px solid var(--border-gold);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-top: 2rem;
+    backdrop-filter: blur(8px);
   }
-
-  @media(max-width: 400px) {
-    .hero-headline { font-size: 2rem; }
-    .nav-name { font-size: 15px; }
-    .nav-cta { padding: 0.4rem 0.8rem; font-size: 12px; }
-    .stat-item { min-width: 100px; }
-    .asset-row { grid-template-columns: 1fr 90px 32px; }
-    .comp-table th:nth-child(n+4),
-    .comp-table td:nth-child(n+4) { display: none; }
+  .form-row { margin-bottom: 0.75rem; }
+  .form-row input, .form-row select {
+    width: 100%; background: var(--dark-3);
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 0.7rem 1rem; font-size: 14px; font-family: var(--font-body);
+    color: var(--text); outline: none; transition: border-color 0.2s; -webkit-appearance: none;
   }
-
-  @media(max-width: 640px) {
-    .stats-bar { gap: 1.25rem; }
-    .asset-row { grid-template-columns: 1fr 100px 36px; }
+  .form-row input::placeholder { color: var(--text-dim); }
+  .form-row input:focus, .form-row select:focus { border-color: var(--green-mid); }
+  .form-row select option { background: var(--dark-3); color: var(--text); }
+  .form-submit {
+    width: 100%; background: var(--green-mid); color: white;
+    border: none; border-radius: var(--radius-sm);
+    padding: 0.85rem; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: background 0.2s; font-family: var(--font-body);
+    letter-spacing: 0.05em; text-transform: uppercase; margin-top: 0.25rem;
   }
+  .form-submit:hover { background: var(--green); }
+  .form-count { text-align: center; margin-top: 0.75rem; font-size: 12px; color: var(--text-dim); }
+  .form-success { display: none; text-align: center; padding: 1rem; color: var(--green-mid); font-size: 14px; font-weight: 500; }
 
+  /* ── FOOTER ── */
+  footer {
+    background: var(--green-deep);
+    border-top: 1px solid rgba(201,168,76,0.15);
+    padding: 3rem 4rem 2rem;
+    position: relative; overflow: hidden;
+  }
+  .footer-watermark {
+    position: absolute; right: -2rem; top: 50%; transform: translateY(-50%);
+    font-family: var(--font-display); font-size: 12rem; font-weight: 600;
+    color: rgba(29,158,117,0.08); line-height: 1;
+    pointer-events: none; user-select: none;
+  }
+  .footer-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    position: relative; z-index: 1;
+  }
+  .footer-brand { display: flex; flex-direction: column; gap: 4px; }
+  .footer-logo-row { display: flex; align-items: center; gap: 8px; }
+  .footer-logo-mark {
+    width: 28px; height: 28px; background: var(--green-mid);
+    border-radius: 7px; display: flex; align-items: center; justify-content: center;
+  }
+  .footer-logo-mark svg { width: 14px; height: 14px; }
+  .footer-name { font-size: 16px; font-weight: 600; }
+  .footer-tagline {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 13px; color: var(--gold); margin-top: 4px;
+  }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a { font-size: 13px; color: rgba(255,255,255,0.5); transition: color 0.2s; }
+  .footer-links a:hover { color: var(--green-mid); }
+  .footer-copy { font-size: 11px; color: rgba(255,255,255,0.25); margin-top: 2rem; position: relative; z-index: 1; }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ── GENDER BTNS ── */
   .gender-btn {
     background: var(--dark-3); border: 1px solid var(--border);
     border-radius: var(--radius-sm); padding: 0.65rem 0.75rem;
-    font-size: 13px; font-family: 'Inter', sans-serif;
-    color: var(--text-muted); cursor: pointer; transition: all 0.2s;
-    text-align: center; line-height: 1.4;
+    font-size: 13px; font-family: var(--font-body);
+    color: var(--text-muted); cursor: pointer; transition: all 0.2s; text-align: center;
   }
   .gender-btn:hover { border-color: var(--green-mid); color: var(--text); }
   .gender-btn.active { background: rgba(29,158,117,0.12); border-color: var(--green-mid); color: var(--green-mid); font-weight: 500; }
 
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(5px); }
+  /* ── RESPONSIVE ── */
+  @media(max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding: 3.5rem 2rem 3rem; min-height: auto; gap: 2.5rem; }
+    .hero-right { display: block; }
+    .hero-headline { font-size: clamp(2.4rem, 7vw, 3.2rem); }
+    .hero-preview-card { padding: 1.25rem; }
+    .preview-estate { font-size: 22px; }
+    .section { padding: 3.5rem 2rem; }
+    .calc-section { padding: 3.5rem 2rem; }
+    .timeline-item { grid-template-columns: 1fr; gap: 0.75rem; }
+    .timeline-line { display: none; }
+    .timeline-left { text-align: left; }
+    .timeline-node { margin: 0; width: 36px; height: 36px; font-size: 12px; }
+    .waitlist-section { padding: 3.5rem 2rem; }
+    footer { padding: 2.5rem 2rem 1.5rem; }
+    .footer-inner { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+    .footer-watermark { font-size: 8rem; }
+    .stats-strip { padding: 1rem; }
+    .stat-strip-item { padding: 0.75rem 1rem; }
+  }
+
+  @media(max-width: 600px) {
+    nav { padding: 0 1.25rem; }
+    .hero { padding: 2.5rem 1.25rem 2.5rem; gap: 2rem; }
+    .hero-badge { font-size: 10px; padding: 0.3rem 0.7rem; letter-spacing: 0.02em; }
+    .hero-headline { font-size: clamp(2rem, 9vw, 2.8rem); margin-bottom: 1rem; }
+    .hero-sub { font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .hero-actions { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+    .btn-primary { text-align: center; padding: 0.85rem 1.5rem; }
+    .btn-ghost { justify-content: center; }
+    .hero-right { order: 1; }
+    .hero-preview-card { padding: 1rem; }
+    .preview-estate { font-size: 20px; }
+    .preview-heir-row { padding: 0.5rem 0; }
+    .preview-bar-wrap { width: 55px; }
+    .preview-pct { font-size: 12px; min-width: 32px; }
+    .section { padding: 2.5rem 1.25rem; }
+    .section-title { font-size: clamp(1.7rem, 7vw, 2.2rem); }
+    .section-sub { font-size: 0.9rem; margin-bottom: 2rem; }
+    .calc-section { padding: 2.5rem 1.25rem; }
+    .calc-body { padding: 1rem 0.875rem; }
+    .heir-grid { grid-template-columns: 1fr; }
+    .asset-row { grid-template-columns: 1fr 90px 32px; }
+    .heir-fraction-out { display: none; }
+    .problem-row { grid-template-columns: 36px 1fr; gap: 1rem; padding: 1.5rem 0; }
+    .problem-icon { width: 36px; height: 36px; }
+    .problem-content h4 { font-size: 1.1rem; }
+    .waitlist-section { padding: 2.5rem 1.25rem; }
+    .waitlist-form-card { padding: 1.25rem; }
+    footer { padding: 2rem 1.25rem 1.25rem; }
+    .footer-watermark { display: none; }
+    .footer-links { flex-wrap: wrap; gap: 1rem; }
+    .stats-strip { flex-direction: column; }
+    .stat-strip-item { border-right: none; border-bottom: 1px solid var(--border); padding: 0.6rem 1.25rem; }
+    .stat-strip-item:last-child { border-bottom: none; }
+    .comp-table th:nth-child(n+4), .comp-table td:nth-child(n+4) { display: none; }
+    .diamond-divider { height: 20px; }
+  }
+
+  @media(max-width: 380px) {
+    .hero-headline { font-size: 1.85rem; }
+    .nav-name { font-size: 15px; }
+    .nav-cta { padding: 0.4rem 0.8rem; font-size: 12px; }
+  }
+
+  @media(prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
   }
 </style>
 </head>
 <body>
 
-<nav>
+<!-- NAV -->
+<nav id="navbar">
   <div class="nav-logo">
     <div class="nav-logo-mark">
       <svg viewBox="0 0 16 16" fill="none">
@@ -615,77 +743,156 @@
   <button class="nav-cta" onclick="document.getElementById('bottom-waitlist').scrollIntoView({behavior:'smooth'})">Join waitlist</button>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">
-    <div class="hero-badge-dot"></div>
-    Now accepting early access
-  </div>
-  <h1 class="hero-headline">Your crypto dies<br><span>when you do.</span></h1>
-  <p class="hero-sub">Up to 20% of all Bitcoin ever mined is gone forever. For Muslim families, there's a second problem: Islamic inheritance law mandates fixed shares for each heir. No crypto tool enforces that. Warith does.</p>
-  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:0.5rem 1.5rem;margin-bottom:2.5rem;">
-    <span class="hero-stat" style="margin:0;">Lost Bitcoin: <strong>up to 20% of total supply</strong></span>
-    <span class="hero-stat" style="margin:0;">GCC: <strong>1-in-3 UAE residents own crypto</strong></span>
-    <span class="hero-stat" style="margin:0;">Pakistan: <strong>#3 globally</strong></span>
+  <canvas class="hero-canvas" id="hero-canvas"></canvas>
+
+  <div class="hero-left">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      Sharia-compliant &nbsp;·&nbsp; GCC-first &nbsp;·&nbsp; Early access open
+    </div>
+    <h1 class="hero-headline">
+      Your crypto dies<br>
+      <span class="gold-italic">when you do.</span>
+    </h1>
+    <p class="hero-sub">
+      Up to <strong>20% of all Bitcoin</strong> ever mined is gone forever. For Muslim families, there's a second problem: Islamic law mandates fixed inheritance shares. <strong>No crypto tool enforces that.</strong> Warith does.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('bottom-waitlist').scrollIntoView({behavior:'smooth'})">Join the waitlist &rarr;</button>
+      <button class="btn-ghost" onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})">
+        Try the free calculator
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6.5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
   </div>
 
-  <div style="display:flex;flex-direction:column;align-items:center;gap:1rem;">
-    <button class="nav-cta" style="padding:0.85rem 2.5rem;font-size:15px;border-radius:8px;" onclick="document.getElementById('bottom-waitlist').scrollIntoView({behavior:'smooth'})">Join the waitlist &rarr;</button>
-    <button onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})" style="background:transparent;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--text-muted);font-size:13px;font-family:'Inter',sans-serif;">
-      Try the free faraid calculator
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="animation:bounce 1.5s infinite;"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
+  <div class="hero-right">
+    <div class="hero-preview-card">
+      <div class="preview-card-header">
+        <div class="dot dot-red"></div>
+        <div class="dot dot-yellow"></div>
+        <div class="dot dot-green"></div>
+        <span class="preview-card-title">Warith Faraid Calculator</span>
+      </div>
+      <div class="preview-estate-label">Total estate value</div>
+      <div class="preview-estate">$250,000</div>
+      <div class="preview-heir-row">
+        <div class="preview-avatar">W</div>
+        <div style="flex:1">
+          <div class="preview-heir-name">Wife</div>
+          <div class="preview-heir-rel">spouse · 1/8</div>
+        </div>
+        <div class="preview-bar-wrap"><div class="preview-bar" style="width:12.5%"></div></div>
+        <div class="preview-pct">12.5%</div>
+      </div>
+      <div class="preview-heir-row">
+        <div class="preview-avatar">S1</div>
+        <div style="flex:1">
+          <div class="preview-heir-name">Son</div>
+          <div class="preview-heir-rel">son · asabah</div>
+        </div>
+        <div class="preview-bar-wrap"><div class="preview-bar" style="width:58%"></div></div>
+        <div class="preview-pct">58.3%</div>
+      </div>
+      <div class="preview-heir-row">
+        <div class="preview-avatar">D1</div>
+        <div style="flex:1">
+          <div class="preview-heir-name">Daughter</div>
+          <div class="preview-heir-rel">daughter · asabah</div>
+        </div>
+        <div class="preview-bar-wrap"><div class="preview-bar" style="width:29%"></div></div>
+        <div class="preview-pct">29.2%</div>
+      </div>
+      <div class="preview-basis"><strong>Basis:</strong> Sunni Hanafi faraid. All shares legally mandated under Sharia. Total: 100%.</div>
+    </div>
   </div>
 </section>
 
-<div class="stats-bar">
-  <div class="stat-item"><span class="stat-num">2B+</span><span class="stat-label">Muslims globally</span></div>
-  <div class="stat-item"><span class="stat-num">20%</span><span class="stat-label">of all Bitcoin gone forever</span></div>
-  <div class="stat-item"><span class="stat-num">#3</span><span class="stat-label">Pakistan, global crypto rank</span></div>
-  <div class="stat-item"><span class="stat-num">1-in-3</span><span class="stat-label">UAE residents own crypto (GCC hub)</span></div>
-  <div class="stat-item"><span class="stat-num">0</span><span class="stat-label">Tools with faraid support</span></div>
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stat-strip-item">
+    <span class="stat-strip-num" data-count="2">2B+</span>
+    <span class="stat-strip-label">Muslims globally</span>
+  </div>
+  <div class="stat-strip-item">
+    <span class="stat-strip-num">20%</span>
+    <span class="stat-strip-label">of all Bitcoin gone forever</span>
+  </div>
+  <div class="stat-strip-item">
+    <span class="stat-strip-num">#3</span>
+    <span class="stat-strip-label">Pakistan, global crypto rank</span>
+  </div>
+  <div class="stat-strip-item">
+    <span class="stat-strip-num">1-in-3</span>
+    <span class="stat-strip-label">UAE residents own crypto</span>
+  </div>
+  <div class="stat-strip-item">
+    <span class="stat-strip-num">0</span>
+    <span class="stat-strip-label">Tools with faraid support</span>
+  </div>
 </div>
 
+<div class="diamond-divider"></div>
+
+<!-- PROBLEM SECTION -->
 <div class="section">
-  <p class="section-label">The problem</p>
-  <h2 class="section-title">Three problems.<br>Zero solutions.</h2>
-  <p class="section-sub">Every Muslim crypto holder faces all of these. No existing product addresses any of them properly.</p>
-  <div class="problem-grid">
-    <div class="problem-card">
-      <div class="problem-card-icon">
-        <svg viewBox="0 0 18 18" fill="none"><path d="M9 2L16 6V12L9 16L2 12V6L9 2Z" stroke="#1D9E75" stroke-width="1.3"/><path d="M9 7v3M9 12h.01" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round"/></svg>
+  <p class="section-label reveal">The problem</p>
+  <h2 class="section-title reveal">Three problems.<br><span class="gold-italic">Zero solutions.</span></h2>
+  <p class="section-sub reveal">Every Muslim crypto holder faces all three. No existing product addresses any of them properly.</p>
+  <div class="problem-list">
+    <div class="problem-row reveal">
+      <div class="problem-icon">
+        <svg viewBox="0 0 20 20" fill="none"><path d="M10 2L17 6V14L10 18L3 14V6L10 2Z" stroke="#1D9E75" stroke-width="1.3"/><path d="M10 8v3M10 13h.01" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round"/></svg>
       </div>
-      <h4>The key problem</h4>
-      <p>When you die, your private keys die with you. Your family has no access. $30B+ in crypto has already been permanently lost this way. Existing tools give you one recovery option, not a family inheritance plan.</p>
+      <div class="problem-content">
+        <h4>The key problem</h4>
+        <p>When you die, your private keys die with you. Your family has no access. $30B+ in crypto has already been permanently lost this way. Existing tools give you one recovery option — not a family inheritance plan.</p>
+        <span class="problem-tag">Access & Custody</span>
+      </div>
     </div>
-    <div class="problem-card">
-      <div class="problem-card-icon">
-        <svg viewBox="0 0 18 18" fill="none"><path d="M2 9h14M9 2v14" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round"/><circle cx="9" cy="9" r="7" stroke="#1D9E75" stroke-width="1.3"/></svg>
+    <div class="problem-row reveal reveal-delay-1">
+      <div class="problem-icon">
+        <svg viewBox="0 0 20 20" fill="none"><path d="M2 10h16M10 2v16" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round"/><circle cx="10" cy="10" r="8" stroke="#1D9E75" stroke-width="1.3"/></svg>
       </div>
-      <h4>The faraid problem</h4>
-      <p>Islamic inheritance law mandates mathematically fixed shares. Your wife, sons, daughters, and parents each receive specific portions. You cannot override these with a standard will. No crypto custody tool calculates or enforces faraid.</p>
+      <div class="problem-content">
+        <h4>The faraid problem</h4>
+        <p>Islamic inheritance law mandates mathematically fixed shares. Your wife, sons, daughters, and parents each receive specific portions mandated by Sharia. You cannot override these with a standard will. No crypto custody tool calculates or enforces faraid.</p>
+        <span class="problem-tag">Islamic Compliance</span>
+      </div>
     </div>
-    <div class="problem-card">
-      <div class="problem-card-icon">
-        <svg viewBox="0 0 18 18" fill="none"><rect x="2" y="5" width="14" height="10" rx="2" stroke="#1D9E75" stroke-width="1.3"/><path d="M6 5V4a3 3 0 016 0v1" stroke="#1D9E75" stroke-width="1.3"/></svg>
+    <div class="problem-row reveal reveal-delay-2">
+      <div class="problem-icon">
+        <svg viewBox="0 0 20 20" fill="none"><rect x="2" y="6" width="16" height="11" rx="2" stroke="#1D9E75" stroke-width="1.3"/><path d="M7 6V5a3 3 0 016 0v1" stroke="#1D9E75" stroke-width="1.3"/></svg>
       </div>
-      <h4>The legal problem</h4>
-      <p>A handwritten will with your seed phrase is unenforceable for digital assets in UAE courts. Your family may spend years in probate. You need a DIFC trust structure that holds crypto and distributes it correctly.</p>
+      <div class="problem-content">
+        <h4>The legal problem</h4>
+        <p>A handwritten will with your seed phrase is unenforceable for digital assets in UAE courts. Your family may spend years in probate. You need a DIFC trust structure that holds crypto and distributes it correctly under GCC law.</p>
+        <span class="problem-tag">Legal Enforceability</span>
+      </div>
     </div>
-    <div class="problem-card">
-      <div class="problem-card-icon">
-        <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="#1D9E75" stroke-width="1.3"/><path d="M6 9l2 2 4-4" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="problem-row reveal reveal-delay-3">
+      <div class="problem-icon">
+        <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="#C9A84C" stroke-width="1.3"/><path d="M7 10l2 2 4-4" stroke="#C9A84C" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <h4>What Warith does</h4>
-      <p>MPC custody so no single key holder can access or lose your assets. Automated faraid calculation. Smart contract distribution to each heir in the correct proportions. DIFC trust wrapper for UAE legal enforceability.</p>
+      <div class="problem-content">
+        <h4>What Warith does</h4>
+        <p>MPC custody so no single key can be lost. Automated faraid calculation under Sunni Hanafi rules. Smart contract distribution to each heir in the correct proportions. DIFC trust wrapper for UAE legal enforceability.</p>
+        <span class="problem-tag" style="color:var(--green-mid);border-color:rgba(29,158,117,0.3)">The Solution</span>
+      </div>
     </div>
   </div>
 </div>
 
+<div class="diamond-divider"></div>
+
+<!-- CALCULATOR -->
 <div class="calc-section" id="calculator">
   <div class="calc-inner">
     <p class="section-label" style="text-align:center;margin-bottom:0.5rem">Free faraid calculator</p>
-    <h2 class="section-title" style="text-align:center;margin-bottom:0.5rem">Calculate your<br>inheritance distribution</h2>
-    <p style="text-align:center;color:var(--text-muted);font-size:0.95rem;margin-bottom:2rem">Sunni Hanafi rules &nbsp;·&nbsp; Mathematically correct &nbsp;·&nbsp; Takes 2 minutes</p>
+    <h2 class="section-title" style="text-align:center;margin-bottom:0.5rem">Calculate your<br><span class="gold-italic">inheritance distribution</span></h2>
+    <p style="text-align:center;color:var(--text-muted);font-size:0.9rem;margin-bottom:2rem">Sunni Hanafi rules &nbsp;·&nbsp; Mathematically correct &nbsp;·&nbsp; Takes 2 minutes</p>
     <div class="calc-card">
       <div class="calc-header">
         <svg viewBox="0 0 20 20" fill="none"><path d="M10 2L17 6V14L10 18L3 14V6L10 2Z" stroke="white" stroke-width="1.3"/><circle cx="10" cy="10" r="2.5" fill="white"/></svg>
@@ -706,13 +913,13 @@
           <div class="calc-step-label"><div class="step-num-badge">2</div> Your crypto assets</div>
           <div style="background:rgba(29,158,117,0.06);border:1px solid rgba(29,158,117,0.15);border-radius:8px;padding:0.6rem 1rem;margin-bottom:0.75rem;display:flex;align-items:center;gap:8px;">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M7 1L12 3.5V7C12 9.8 9.8 12.3 7 13C4.2 12.3 2 9.8 2 7V3.5L7 1Z" stroke="#1D9E75" stroke-width="1.2"/><path d="M5 7l1.5 1.5L9 5" stroke="#1D9E75" stroke-width="1.2" stroke-linecap="round"/></svg>
-            <span style="font-size:12px;color:var(--text-muted);line-height:1.5;">Your data is <strong style="color:#1D9E75;">never stored or tracked.</strong> This calculator runs entirely in your browser. Nothing you enter here is sent to our servers.</span>
+            <span style="font-size:12px;color:var(--text-muted);line-height:1.5;">Your data is <strong style="color:#1D9E75;">never stored or tracked.</strong> This calculator runs entirely in your browser.</span>
           </div>
           <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(29,158,117,0.06);border:1px solid rgba(29,158,117,0.2);border-radius:8px;padding:0.6rem 1rem;margin-bottom:0.75rem;">
             <div style="display:flex;align-items:center;gap:8px;">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4h10a1 1 0 011 1v5a1 1 0 01-1 1H2a1 1 0 01-1-1V5a1 1 0 011-1z" stroke="#1D9E75" stroke-width="1.2"/><circle cx="10" cy="7" r="1" fill="#1D9E75"/></svg>
               <span style="font-size:12px;color:#1D9E75;font-weight:500;">Connect wallet or exchange</span>
-              <span style="font-size:11px;color:var(--text-dim);display:none;" class="wallet-names">MetaMask · Binance · Ledger · Coinbase</span>
+              <span style="font-size:11px;color:var(--text-dim);">MetaMask · Binance · Ledger · Coinbase</span>
             </div>
             <span style="font-size:11px;background:rgba(29,158,117,0.15);color:#1D9E75;padding:2px 8px;border-radius:20px;font-weight:500;">Coming soon</span>
           </div>
@@ -808,7 +1015,7 @@
       <div class="vault-form">
         <input type="text" id="v-name" placeholder="Your full name">
         <input type="email" id="v-email" placeholder="Email address">
-        <select id="v-country" style="background:var(--dark-3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.7rem 0.85rem;font-size:13px;font-family:'Inter',sans-serif;color:var(--text);outline:none;width:100%;-webkit-appearance:none;">
+        <select id="v-country" style="background:var(--dark-3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.7rem 0.85rem;font-size:13px;font-family:var(--font-body);color:var(--text);outline:none;width:100%;-webkit-appearance:none;">
           <option value="" disabled selected>Country</option>
           <option>United Arab Emirates</option><option>Saudi Arabia</option><option>Qatar</option>
           <option>Kuwait</option><option>Bahrain</option><option>Oman</option>
@@ -823,23 +1030,58 @@
   </div>
 </div>
 
+<div class="diamond-divider"></div>
+
+<!-- HOW IT WORKS — VERTICAL TIMELINE -->
 <div class="section">
-  <p class="section-label">How it works</p>
-  <h2 class="section-title">Four steps to<br>protected inheritance</h2>
-  <p class="section-sub">From calculation to automatic distribution, everything handled under one roof.</p>
-  <div class="steps-grid">
-    <div class="step-card"><div class="step-num">1</div><h4>Calculate your faraid</h4><p>Enter your assets and heirs. The calculator outputs each heir's exact Sharia-compliant share, mathematically correct under Sunni Hanafi rules.</p></div>
-    <div class="step-card"><div class="step-num">2</div><h4>Create your vault</h4><p>Your distribution plan is locked into a Warith vault. Assets are held in MPC custody with no single key, no single point of failure, no dependence on one person.</p></div>
-    <div class="step-card"><div class="step-num">3</div><h4>Liveness monitoring</h4><p>Warith checks periodically that you're still alive. Simple verification. If you stop responding, the distribution sequence begins after a defined grace period.</p></div>
-    <div class="step-card"><div class="step-num">4</div><h4>Automatic distribution</h4><p>Assets distribute automatically to each heir in the faraid-correct proportions. The DIFC trust structure ensures UAE legal enforceability without probate.</p></div>
+  <p class="section-label reveal">How it works</p>
+  <h2 class="section-title reveal">Four steps to<br><span class="gold-italic">protected inheritance</span></h2>
+  <p class="section-sub reveal">From calculation to automatic distribution — a journey, not a checklist.</p>
+  <div class="timeline">
+    <div class="timeline-line"></div>
+    <div class="timeline-item reveal">
+      <div class="timeline-left">
+        <div class="timeline-title">Calculate your faraid</div>
+        <div class="timeline-desc">Enter your assets and heirs. The calculator outputs each heir's exact Sharia-compliant share, mathematically correct under Sunni Hanafi rules.</div>
+      </div>
+      <div class="timeline-node">01</div>
+      <div class="timeline-right"></div>
+    </div>
+    <div class="timeline-item reveal reveal-delay-1">
+      <div class="timeline-left"></div>
+      <div class="timeline-node">02</div>
+      <div class="timeline-right">
+        <div class="timeline-title">Create your vault</div>
+        <div class="timeline-desc">Your distribution plan is locked into a Warith vault. Assets are held in MPC custody with no single key, no single point of failure.</div>
+      </div>
+    </div>
+    <div class="timeline-item reveal reveal-delay-2">
+      <div class="timeline-left">
+        <div class="timeline-title">Liveness monitoring</div>
+        <div class="timeline-desc">Warith checks periodically that you're still alive. Simple verification. If you stop responding, the distribution sequence begins after a defined grace period.</div>
+      </div>
+      <div class="timeline-node">03</div>
+      <div class="timeline-right"></div>
+    </div>
+    <div class="timeline-item reveal reveal-delay-3">
+      <div class="timeline-left"></div>
+      <div class="timeline-node">04</div>
+      <div class="timeline-right">
+        <div class="timeline-title">Automatic distribution</div>
+        <div class="timeline-desc">Assets distribute automatically to each heir in the faraid-correct proportions. The DIFC trust structure ensures UAE legal enforceability without probate.</div>
+      </div>
+    </div>
   </div>
 </div>
 
+<div class="diamond-divider"></div>
+
+<!-- COMPARISON -->
 <div class="section">
-  <p class="section-label">Why Warith</p>
-  <h2 class="section-title">The only product built<br>for Muslim families</h2>
-  <p class="section-sub">Every other crypto custody tool was built for Western inheritance law. None of them know what faraid is.</p>
-  <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius);border:1px solid var(--border)">
+  <p class="section-label reveal">Why Warith</p>
+  <h2 class="section-title reveal">The only product built<br><span class="gold-italic">for Muslim families</span></h2>
+  <p class="section-sub reveal">Every other crypto custody tool was built for Western inheritance law. None of them know what faraid is.</p>
+  <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius);border:1px solid var(--border)" class="reveal">
     <table class="comp-table">
       <thead>
         <tr><th>Product</th><th>Key recovery</th><th>Multi-heir</th><th>Faraid logic</th><th>GCC legal</th><th>Islamic trust</th></tr>
@@ -855,42 +1097,68 @@
   </div>
 </div>
 
-<div id="bottom-waitlist" style="background:var(--dark-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:4rem 1.5rem;text-align:center">
-  <p class="section-label" style="justify-content:center;display:flex">Early access</p>
-  <h2 class="section-title" style="margin-bottom:1rem">Be first when<br>the vault launches</h2>
-  <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:2rem;max-width:440px;margin-left:auto;margin-right:auto">Join the waitlist. Use the free faraid calculator now. We'll reach out personally when vault access opens.</p>
-  <div class="waitlist-form" style="margin:0 auto">
-    <div id="bottom-form">
-      <div class="form-row"><input type="text" id="b-name" placeholder="Your full name"></div>
-      <div class="form-row"><input type="email" id="b-email" placeholder="Email address"></div>
-      <div class="form-row">
-        <select id="b-country">
-          <option value="" disabled selected>Country</option>
-          <option>United Arab Emirates</option><option>Saudi Arabia</option><option>Qatar</option>
-          <option>Kuwait</option><option>Bahrain</option><option>Oman</option>
-          <option>Pakistan</option><option>United Kingdom</option><option>United States</option>
-          <option>Canada</option><option>Malaysia</option><option>Indonesia</option>
-          <option>Turkey</option><option>Other</option>
-        </select>
+<div class="diamond-divider"></div>
+
+<!-- WAITLIST -->
+<div class="waitlist-section" id="bottom-waitlist">
+  <div class="waitlist-inner">
+    <p class="section-label reveal" style="justify-content:center;display:flex">Early access</p>
+    <h2 class="section-title reveal" style="margin-bottom:0.5rem">Be first when<br><span class="gold-italic">the vault launches</span></h2>
+    <p style="color:var(--text-muted);font-size:0.9rem;line-height:1.75;" class="reveal">Join the waitlist. Use the free faraid calculator now. We'll reach out personally when vault access opens.</p>
+    <div class="waitlist-form-card reveal">
+      <div id="bottom-form">
+        <div class="form-row"><input type="text" id="b-name" placeholder="Your full name"></div>
+        <div class="form-row"><input type="email" id="b-email" placeholder="Email address"></div>
+        <div class="form-row">
+          <select id="b-country">
+            <option value="" disabled selected>Country</option>
+            <option>United Arab Emirates</option><option>Saudi Arabia</option><option>Qatar</option>
+            <option>Kuwait</option><option>Bahrain</option><option>Oman</option>
+            <option>Pakistan</option><option>United Kingdom</option><option>United States</option>
+            <option>Canada</option><option>Malaysia</option><option>Indonesia</option>
+            <option>Turkey</option><option>Other</option>
+          </select>
+        </div>
+        <button class="form-submit" onclick="submitWaitlist('bottom')">Join the waitlist &rarr;</button>
+        <p class="form-count">Free. No spam. Unsubscribe anytime.</p>
       </div>
-      <button class="form-submit" onclick="submitWaitlist('bottom')">Join the waitlist &rarr;</button>
-      <p class="form-count">Free. No spam. Unsubscribe anytime.</p>
+      <div class="form-success" id="bottom-success">&#10003; You're on the list. We'll be in touch when vault access opens.</div>
     </div>
-    <div class="form-success" id="bottom-success">&#10003; You're on the list. We'll be in touch when vault access opens.</div>
   </div>
 </div>
 
+<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Warith <span class="footer-ar">وارث</span></div>
-  <div class="footer-links">
-    <a href="#calculator">Calculator</a>
-    <a href="mailto:fasih@warith.app">Contact</a>
-    <a href="#bottom-waitlist">Waitlist</a>
+  <div class="footer-watermark">وارث</div>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo-row">
+        <div class="footer-logo-mark">
+          <svg viewBox="0 0 16 16" fill="none">
+            <path d="M8 1L13 4.5V11.5L8 15L3 11.5V4.5L8 1Z" stroke="white" stroke-width="1.3" fill="none"/>
+            <circle cx="8" cy="8" r="2" fill="white"/>
+          </svg>
+        </div>
+        <span class="footer-name">Warith <span style="color:var(--text-muted);font-size:14px;">وارث</span></span>
+      </div>
+      <div class="footer-tagline">Your family deserves what you built.</div>
+    </div>
+    <div class="footer-links">
+      <a href="#calculator">Calculator</a>
+      <a href="mailto:fasih@warith.app">Contact</a>
+      <a href="#bottom-waitlist">Waitlist</a>
+    </div>
   </div>
-  <p>Crypto inheritance for Muslim families. GCC-first. Sharia-compliant.</p>
-  <p style="margin-top:0.5rem;font-size:11px">&#169; 2026 Warith. All rights reserved.</p>
+  <div class="footer-copy">
+    <p>Crypto inheritance for Muslim families. GCC-first. Sharia-compliant.</p>
+    <p style="margin-top:4px">&copy; 2026 Warith. All rights reserved.</p>
+  </div>
 </footer>
 
+<!-- ============================================
+     PRESERVE THIS CODE — DO NOT MODIFY
+     Warith faraid calculator logic + Google Sheets integration
+     ============================================ -->
 <script>
 var SHEET_URL = 'https://script.google.com/macros/s/AKfycbxKp4R0IPuGPmSCV58O_2mvMUYvVxNf-eY7sx_miD5LMtIG6rOaCnQJ8U-8ryRQVG0/exec';
 var COINS = ['BTC','ETH','USDT','USDC','BNB','SOL','Other'];
@@ -1149,6 +1417,102 @@ function saveToSheet(data) {
 
 addCalcAsset('BTC', '');
 addCalcAsset('ETH', '');
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll', function() {
+  var nav = document.getElementById('navbar');
+  if (window.scrollY > 40) { nav.classList.add('scrolled'); }
+  else { nav.classList.remove('scrolled'); }
+});
+
+// ── SCROLL REVEAL ──
+var revealEls = document.querySelectorAll('.reveal');
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(function(el) { observer.observe(el); });
+
+// ── HERO PARTICLE CANVAS ──
+(function() {
+  var canvas = document.getElementById('hero-canvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var particles = [];
+  var W, H;
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  var GREEN = 'rgba(29,158,117,';
+  var GOLD = 'rgba(201,168,76,';
+
+  for (var i = 0; i < 80; i++) {
+    particles.push({
+      x: Math.random() * 1200,
+      y: Math.random() * 800,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      size: Math.random() * 4 + 2,
+      color: Math.random() > 0.6 ? GREEN : GOLD
+    });
+  }
+
+  function drawHex(x, y, r, color) {
+    ctx.beginPath();
+    for (var i = 0; i < 6; i++) {
+      var angle = (Math.PI / 3) * i - Math.PI / 6;
+      var px = x + r * Math.cos(angle);
+      var py = y + r * Math.sin(angle);
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = color + '0.7)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(function(p) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = W;
+      if (p.x > W) p.x = 0;
+      if (p.y < 0) p.y = H;
+      if (p.y > H) p.y = 0;
+      drawHex(p.x, p.y, p.size * 2, p.color);
+    });
+    for (var i = 0; i < particles.length; i++) {
+      for (var j = i + 1; j < particles.length; j++) {
+        var dx = particles[i].x - particles[j].x;
+        var dy = particles[i].y - particles[j].y;
+        var dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 140) {
+          ctx.beginPath();
+          ctx.strokeStyle = GOLD + (0.12 * (1 - dist/140)) + ')';
+          ctx.lineWidth = 0.6;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
 </script>
+<!-- ============================================
+     END PRESERVE
+     ============================================ -->
 </body>
 </html>
